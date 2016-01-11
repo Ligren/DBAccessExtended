@@ -1,5 +1,7 @@
 package com.limosys.dblib.vladtest.test;
 
+import static org.junit.Assert.*;
+
 import org.junit.Test;
 
 import com.limosys.dblib.vladtest.T6467063785;
@@ -28,6 +30,8 @@ public class T6467063785Test {
 			System.out.println("Not saved !");
 			e.printStackTrace();
 		}
+		c.accessOneRec(5, true);
+		assertEquals(c.getName(), "Kalabaka!");
 
 		//--------- update row
 		c.accessOneRec(2, true);
@@ -39,6 +43,8 @@ public class T6467063785Test {
 			System.out.println("Not saved !");
 			e.printStackTrace();
 		}
+		c.accessOneRec(2, true);
+		assertEquals(c.getName(), "George good programmer!");
 		
 		//--------- delete row
 		c.accessOneRec(5, true);
@@ -50,6 +56,7 @@ public class T6467063785Test {
 			System.out.println("Not saved !");
 			e.printStackTrace();
 		}
+		assertEquals(c.accessOneRec(5, true), false);
 
 	}
 
