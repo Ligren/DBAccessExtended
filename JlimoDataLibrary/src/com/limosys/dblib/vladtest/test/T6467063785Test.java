@@ -2,6 +2,8 @@ package com.limosys.dblib.vladtest.test;
 
 import static org.junit.Assert.*;
 
+import java.util.Date;
+
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
@@ -22,6 +24,7 @@ public class T6467063785Test {
 	@After
 	public void tearDown() throws SaveException {
 		if (!c.isEmptyDataSet()) {
+			c.accessOneRec(5, true);
 			c.getDataSetMain().deleteRow();
 			c.saveChanges();
 		}
@@ -46,13 +49,18 @@ public class T6467063785Test {
 		assertEquals(c.getName(), "Kalabaka!");
 
 		// --------- update row
-		c.accessOneRec(2, true);
+		String temporaryData = new Date().toString();
+		System.out.println("our date = " + temporaryData);
+		System.out.println(c.accessOneRec(2, true));
+		if (!c.accessOneRec(2, true))
+			c.setId(2);
 		c.setName("George good programmer!");
-		c.setCompanyName("duduka");
+		c.setCompanyName(temporaryData);
 		c.saveChanges();
 
 		c.accessOneRec(2, true);
 		assertEquals(c.getName(), "George good programmer!");
+		assertEquals(c.getCompanyName(), temporaryData);
 
 		// --------- delete row
 		if (c.accessOneRec(5, true)) {
