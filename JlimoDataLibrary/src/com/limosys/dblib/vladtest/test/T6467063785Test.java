@@ -41,13 +41,13 @@ public class T6467063785Test {
 		// --------- add new row
 		c.addNew();
 		c.setId(5);
-		c.setName("Kalabaka!");
+		c.setName("Kalabaka2!");
 		c.setCompanyName("lalala");
 		c.saveChanges();
 		System.out.println("My id = " + c.getId() + "; NAME = " + c.getName() + "; COMPANY NAME = " + c.getCompanyName());
 
 		c.accessOneRec(5, true);
-		assertEquals(c.getName(), "Kalabaka!");
+		assertEquals(c.getName(), "Kalabaka2!");
 
 		// --------- update row
 		String temporaryData = new Date().toString();
