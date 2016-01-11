@@ -32,13 +32,14 @@ public class T6467063785Test {
 
 		if (c.accessOneRec(1, true)) {
 			c.getDataSetMain().first();
-			System.out.println("My id = " + c.getId() + "; NAME = " + c.getName());
+			System.out.println("My id = " + c.getId() + "; NAME = " + c.getName() + "; COMPANY NAME = " + c.getCompanyName());
 		}
 
 		// --------- add new row
 		c.addNew();
 		c.setId(5);
 		c.setName("Kalabaka!");
+		c.setCompanyName("lalala");
 		c.saveChanges();
 
 		c.accessOneRec(5, true);
@@ -47,6 +48,7 @@ public class T6467063785Test {
 		// --------- update row
 		c.accessOneRec(2, true);
 		c.setName("George good programmer!");
+		c.setCompanyName("duduka");
 		c.saveChanges();
 
 		c.accessOneRec(2, true);
@@ -68,7 +70,7 @@ public class T6467063785Test {
 		if (c.accessList(true)) {
 			c.getDataSetMain().first();
 			do {
-				System.out.println("My id (from list) = " + c.getId() + "; NAME = " + c.getName());
+				System.out.println("My id (from list) = " + c.getId() + "; NAME = " + c.getName() + "; COMPANY NAME = " + c.getCompanyName());
 			} while (c.getDataSetMain().next());
 		}
 	}

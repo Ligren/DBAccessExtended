@@ -1,24 +1,10 @@
 package com.limosys.dbaccess.vladtest;
 
-import java.util.ArrayList;
-
-import com.borland.dx.dataset.Column;
-import com.borland.dx.dataset.DataRow;
-import com.borland.dx.dataset.DataSet;
-import com.borland.dx.dataset.MetaDataUpdate;
-import com.borland.dx.dataset.ParameterRow;
-import com.borland.dx.dataset.ReadWriteRow;
-import com.borland.dx.dataset.StorageDataSet;
-import com.borland.dx.dataset.Variant;
-import com.borland.dx.sql.dataset.Database;
-import com.borland.dx.sql.dataset.Load;
-import com.borland.dx.sql.dataset.ProcedureDataSet;
-import com.borland.dx.sql.dataset.ProcedureDescriptor;
-import com.borland.dx.sql.dataset.ProcedureResolver;
-import com.limosys.dbaccess.DbAccessEvent;
-import com.limosys.dbaccess.DbAccessListener;
-import com.limosys.dbaccess.DbGen;
-import com.limosys.dbaccess.ResolverParams;
+import com.limosys.dbaccess.*;
+import com.borland.dx.dataset.*;
+import com.borland.dx.sql.dataset.*;
+import java.sql.*;
+import java.util.*;
 
 public class T6467063785Access {
 
@@ -27,6 +13,7 @@ public class T6467063785Access {
   private ProcedureResolver prT_6467063785 = new T_6467063785Resolver();
   private Column colId = new Column();
   private Column colName = new Column();
+  private Column colCompanyName = new Column();
   private ParameterRow pRowSelect = new ParameterRow();
   private ArrayList<DbAccessListener> dbAccessListeners;
 
@@ -77,14 +64,20 @@ public class T6467063785Access {
     colName.setDataType(Variant.STRING);
     colName.setPrecision(255);
     colName.setSqlType(12);
+    colCompanyName.setColumnName("COMPANY_NAME");
+    colCompanyName.setServerColumnName("COMPANY_NAME");
+    colCompanyName.setTableName("T_6467063785");
+    colCompanyName.setDataType(Variant.STRING);
+    colCompanyName.setPrecision(255);
+    colCompanyName.setSqlType(12);
     prT_6467063785.setDatabase(dbAlias);
-    //prT_6467063785.setInsertProcedure(new ProcedureDescriptor(dbAlias, "exec lsp_T_6467063785_I_v1  :ID, :NAME", pdsT_6467063785, true, Load.ALL));
-    prT_6467063785.setDeleteProcedure(new ProcedureDescriptor(dbAlias, "exec lsp_T_6467063785_D_v1  :ID", pdsT_6467063785, true, Load.ALL));
+    //prT_6467063785.setInsertProcedure(new ProcedureDescriptor(dbAlias, "exec lsp_T_6467063785_INotNull_v2  :ID, :NAME, :COMPANY_NAME", pdsT_6467063785, true, Load.ALL));
+    prT_6467063785.setDeleteProcedure(new ProcedureDescriptor(dbAlias, "exec lsp_T_6467063785_D_v2  :ID", pdsT_6467063785, true, Load.ALL));
     pdsT_6467063785.setMetaDataUpdate(MetaDataUpdate.NONE);
     pdsT_6467063785.setResolver(prT_6467063785);
     pdsT_6467063785.setSchemaName("");
-    pdsT_6467063785.setProcedure(new ProcedureDescriptor(dbAlias, "exec lsp_T_6467063785_SRow_v1 :ID", pRowSelect, true, Load.ALL));
-    pdsT_6467063785.setColumns(new Column[] { colId, colName});
+    pdsT_6467063785.setProcedure(new ProcedureDescriptor(dbAlias, "exec lsp_T_6467063785_SRow_v2 :ID", pRowSelect, true, Load.ALL));
+    pdsT_6467063785.setColumns(new Column[] { colId, colName, colCompanyName});
   }
   public synchronized void removeDbAccessListener(DbAccessListener l) {
   	if (dbAccessListeners != null && dbAccessListeners.contains(l)) dbAccessListeners.remove(l);
@@ -118,14 +111,16 @@ public class T6467063785Access {
       csParams = new String[] {
           "ID",
           "NAME",
+          "COMPANY_NAME",
           "Orig_ID",
-          "Orig_NAME"
+          "Orig_NAME",
+          "Orig_COMPANY_NAME"
       };
-      rpUpdateArr[rpCount] = new ResolverParams("T_6467063785", "lsp_T_6467063785_U_v1", csParams, null); 
+      rpUpdateArr[rpCount] = new ResolverParams("T_6467063785", "lsp_T_6467063785_UInsDel_v2", csParams, null); 
       csParams = new String[] {
           "ID"
       };
-      rpSelectArr[rpCount++] = new ResolverParams("T_6467063785", "lsp_T_6467063785_SRow_v1",  csParams, null); 
+      rpSelectArr[rpCount++] = new ResolverParams("T_6467063785", "lsp_T_6467063785_SRow_v2",  csParams, null); 
 
       DbGen.resolveUpdate(dataSet, oldRow, this.getDatabase(), rpUpdateArr, rpSelectArr); 
     }
@@ -143,9 +138,10 @@ public class T6467063785Access {
       //T_6467063785:
       csParams = new String[] {
           "ID",
-          "NAME"
+          "NAME",
+          "COMPANY_NAME"
       };
-      rpInsertArr[rpCount++] = new ResolverParams("T_6467063785", "lsp_T_6467063785_I_v1", csParams, null); 
+      rpInsertArr[rpCount++] = new ResolverParams("T_6467063785", "lsp_T_6467063785_INotNull_v2", csParams, null); 
 
       DbGen.resolveInsert(dataSet, this.getDatabase(), rpInsertArr, insertedRow);
       fireRowInserted(new DbAccessEvent(this, insertedRow));
@@ -160,7 +156,7 @@ public class T6467063785Access {
 
       //T_6467063785:
       csParams = new String[] { "ID"};
-      rpDeleteArr[rpCount++] = new ResolverParams("T_6467063785", "lsp_T_6467063785_D_v1", csParams, null);
+      rpDeleteArr[rpCount++] = new ResolverParams("T_6467063785", "lsp_T_6467063785_D_v2", csParams, null);
 
       DbGen.resolveDelete(dataSet, this.getDatabase(), rpDeleteArr);
     }

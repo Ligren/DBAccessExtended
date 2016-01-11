@@ -62,6 +62,7 @@ public abstract class T6467063785DataAccess extends JLimoObject {
   private void initProps() {
     try {
       htObjProps.put("Name", new JLimoObjectProperty("Name", this.getClass().getMethod("colName"), Variant.STRING));
+      htObjProps.put("CompanyName", new JLimoObjectProperty("CompanyName", this.getClass().getMethod("colCompanyName"), Variant.STRING));
       htObjProps.put("Id", new JLimoObjectProperty("Id", this.getClass().getMethod("colId"), Variant.INT));
     } catch (SecurityException ex) {
     } catch (NoSuchMethodException ex) {
@@ -536,6 +537,92 @@ protected void updatePropertiesAndEvents() {
     }
   }
 
+// CompanyName:
+  public boolean isCompanyNameNull() {
+    switch (curAccessType) {
+    case ONEREC:
+      return rwRow==null ? curDataSets[0].isNull("COMPANY_NAME") : rwRow.isNull("COMPANY_NAME");
+    case LIST:
+      return rwRow==null ? curDataSets[0].isNull("COMPANY_NAME") : rwRow.isNull("COMPANY_NAME");
+    default:
+      throw getPropertyNotAvailableException("CompanyName");
+    }
+  }
+  public void setCompanyNameNull() {
+    switch (curAccessType) {
+    case ONEREC:
+      if (rwRow==null) {
+        curDataSets[0].setAssignedNull("COMPANY_NAME");
+      } else {
+        rwRow.setAssignedNull("COMPANY_NAME");
+      }
+      break;
+    case LIST:
+      if (rwRow==null) {
+        curDataSets[0].setAssignedNull("COMPANY_NAME");
+      } else {
+        rwRow.setAssignedNull("COMPANY_NAME");
+      }
+      break;
+    default:
+      throw getPropertyNotAvailableException("CompanyName");
+    }
+  }
+  public String getCompanyName() {/// ## 1
+    if (isCompanyNameNull()) return null;
+    switch (curAccessType) {
+    case ONEREC:
+      return rwRow==null ? curDataSets[0].getString("COMPANY_NAME") : rwRow.getString("COMPANY_NAME");
+    case LIST:
+      return rwRow==null ? curDataSets[0].getString("COMPANY_NAME") : rwRow.getString("COMPANY_NAME");
+    default:
+      throw getPropertyNotAvailableException("CompanyName");
+    }
+  }
+  public void setCompanyName(String companyName) {/// ## 2
+    if (companyName==null) {
+      setCompanyNameNull();
+      return;
+    }
+    switch (curAccessType) {
+    case ONEREC:
+      if (rwRow==null) {
+        curDataSets[0].setString("COMPANY_NAME", companyName);
+      } else {
+        rwRow.setString("COMPANY_NAME", companyName);
+      }
+      break;
+    case LIST:
+      if (rwRow==null) {
+        curDataSets[0].setString("COMPANY_NAME", companyName);
+      } else {
+        rwRow.setString("COMPANY_NAME", companyName);
+      }
+      break;
+    default:
+      throw getPropertyNotAvailableException("CompanyName");
+    }
+  }
+  public Column colCompanyName() {
+    switch (curAccessType) {
+    case ONEREC:
+      return (rwRow==null ? curDataSets[0].getColumn("COMPANY_NAME") : rwRow.getColumn("COMPANY_NAME"));
+    case LIST:
+      return (rwRow==null ? curDataSets[0].getColumn("COMPANY_NAME") : rwRow.getColumn("COMPANY_NAME"));
+    case NONE:
+      if (sdsNone.hasColumn("CompanyName")==null) {
+        Column col = new Column();
+        col.setCaption("CompanyName");
+        col.setColumnName("CompanyName");
+        col.setDataType(com.borland.dx.dataset.Variant.STRING);
+        sdsNone.addColumn(col);
+      }
+      return sdsNone.getColumn("CompanyName");
+    default:
+      return null;
+    }
+  }
+
 // Id:
   public boolean isIdNull() {
     switch (curAccessType) {
@@ -623,6 +710,8 @@ protected void updatePropertiesAndEvents() {
         return null;
     } else if (propName.equals("Name")) {
       return colName();
+    } else if (propName.equals("CompanyName")) {
+      return colCompanyName();
     } else if (propName.equals("Id")) {
       return colId();
     } else {
@@ -690,6 +779,7 @@ protected void updatePropertiesAndEvents() {
 //  //protected StorageDataSet sdsMain = super.getDataSetMain();
 //  //protected StorageDataSet sdsNone = super.getSdsNone();
 //  //protected Column colName = super.colName();
+//  //protected Column colCompanyName = super.colCompanyName();
 //  //protected Column colId = super.colId();
 //  
 //  public T6467063785() {
