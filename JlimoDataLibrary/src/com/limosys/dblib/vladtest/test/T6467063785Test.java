@@ -44,6 +44,7 @@ public class T6467063785Test {
 		c.setName("Kalabaka!");
 		c.setCompanyName("lalala");
 		c.saveChanges();
+		System.out.println("My id = " + c.getId() + "; NAME = " + c.getName() + "; COMPANY NAME = " + c.getCompanyName());
 
 		c.accessOneRec(5, true);
 		assertEquals(c.getName(), "Kalabaka!");
