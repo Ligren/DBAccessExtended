@@ -12,29 +12,23 @@ import com.limosys.jlimoobject.SaveException;
 
 public class T6467063785Test {
 
+	T6467063785 c;
+
 	@Before
 	public void setUp() {
-
+		c = T6467063785.getDfltInstance(T6467063785AccessType.ONEREC);
 	}
 
 	@After
-	public void tearDown() {
-		T6467063785 c = T6467063785.getDfltInstance(T6467063785AccessType.ONEREC);
-		if (c.accessOneRec(5, true)) {
+	public void tearDown() throws SaveException {
+		if (!c.isEmptyDataSet()) {
 			c.getDataSetMain().deleteRow();
-			try {
-				c.saveChanges();
-				System.out.println("Deleted in After method");
-			} catch (SaveException e) {
-				System.out.println("Not saved !");
-				e.printStackTrace();
-			}
+			c.saveChanges();
 		}
 	}
 
 	@Test
-	public void testOneRec() {
-		T6467063785 c = T6467063785.getDfltInstance(T6467063785AccessType.ONEREC);
+	public void testOneRec() throws SaveException {
 
 		if (c.accessOneRec(1, true)) {
 			c.getDataSetMain().first();
@@ -45,39 +39,23 @@ public class T6467063785Test {
 		c.addNew();
 		c.setId(5);
 		c.setName("Kalabaka!");
-		try {
-			c.saveChanges();
-			System.out.println("Created");
-		} catch (SaveException e) {
-			System.out.println("Not saved !");
-			e.printStackTrace();
-		}
+		c.saveChanges();
+
 		c.accessOneRec(5, true);
 		assertEquals(c.getName(), "Kalabaka!");
 
 		// --------- update row
 		c.accessOneRec(2, true);
 		c.setName("George good programmer!");
-		try {
-			c.saveChanges();
-			System.out.println("Updated");
-		} catch (SaveException e) {
-			System.out.println("Not saved !");
-			e.printStackTrace();
-		}
+		c.saveChanges();
+
 		c.accessOneRec(2, true);
 		assertEquals(c.getName(), "George good programmer!");
 
 		// --------- delete row
 		if (c.accessOneRec(5, true)) {
 			c.getDataSetMain().deleteRow();
-			try {
-				c.saveChanges();
-				System.out.println("Deleted");
-			} catch (SaveException e) {
-				System.out.println("Not saved !");
-				e.printStackTrace();
-			}
+			c.saveChanges();
 		}
 		assertFalse(c.accessOneRec(5, true));
 
