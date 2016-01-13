@@ -542,7 +542,9 @@ public enum JLimoObjectDefinition {
 	Doc("doc", "DocDataAccessInfo"),
 	DocType("doc", "DocTypeDataAccessInfo"),
 	T6467063785("vladtest", "T6467063785DataAccessInfo"),
-	VladTestInd("vladtest", "VladTestIndDataAccessInfo");
+	VladTestInd("vladtest", "VladTestIndDataAccessInfo"),
+	VladDog("vladtest", "VladDogDataAccessInfo"),
+	VladCat("vladtest", "VladCatDataAccessInfo");
 	
 	private String packageName = "com.limosys.jlimoobject.define";
 	private String subpackageName = "";
